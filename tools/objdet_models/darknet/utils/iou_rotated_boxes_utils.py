@@ -18,7 +18,7 @@ from scipy.spatial import ConvexHull
 
 sys.path.append('../')
 
-from utils.cal_intersection_rotated_boxes import intersection_area, PolyArea2D
+from tools.objdet_models.darknet.utils.cal_intersection_rotated_boxes import intersection_area, PolyArea2D
 
 
 def cvt_box_2_polygon(box):

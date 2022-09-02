@@ -20,8 +20,8 @@ PACKAGE_PARENT = '..'
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 
-from models.yolo_layer import YoloLayer
-from models.darknet_utils import parse_cfg, print_cfg, load_fc, load_conv_bn, load_conv
+from tools.objdet_models.darknet.models.yolo_layer import YoloLayer
+from tools.objdet_models.darknet.models.darknet_utils import parse_cfg, print_cfg, load_fc, load_conv_bn, load_conv
 from utils.torch_utils import to_cpu
 
 
