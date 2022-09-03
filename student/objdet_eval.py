@@ -58,7 +58,7 @@ def calculate_iou(gt_bbox, pred_bbox):
 
 
 # compute various performance measures to assess object detection
-def measure_detection_performance(detections, labels, labels_valid, min_iou=0.8):
+def measure_detection_performance(detections, labels, labels_valid, min_iou=0.5):
     
      # find best detection for each valid label 
     iou = 0
@@ -103,14 +103,11 @@ def measure_detection_performance(detections, labels, labels_valid, min_iou=0.8)
                 
                 ## step 5 : compute the intersection over union (IOU) between label and detection bounding-box
                 iou_lab_det = calculate_iou(box_lab, box_det)
-                try:
-                    poly_1 = Polygon(box_lab)
-                    poly_2 = Polygon(box_det)
-                    intersection = poly_1.intersection(poly_2).area 
-                    union = poly_1.union(poly_2).area
-                    iou = intersection / union
-                except Exception as err:
-                    print("Error in computation",err)
+                poly_1 = Polygon(box_lab)
+                poly_2 = Polygon(box_det)
+                intersection = poly_1.intersection(poly_2).area 
+                union = poly_1.union(poly_2).area
+                iou = intersection / union
                 
                 ## step 6 : if IOU exceeds min_iou threshold, store [iou,dist_x, dist_y, dist_z] in matches_lab_det and increase the TP count           
                               
@@ -134,7 +131,8 @@ def measure_detection_performance(detections, labels, labels_valid, min_iou=0.8)
     # compute positives and negatives for precision/recall
     
     ## step 1 : compute the total number of positives present in the scene
-    all_positives = labels_valid.sum()#len(labels_valid)
+   # all_positives = labels_valid.sum()#len(labels_valid)
+    all_positives = len([p for p in labels_valid if p])
     ## step 2 : compute the number of false negatives
     false_negatives =  all_positives - true_positives
 
@@ -174,10 +172,10 @@ def compute_performance_stats(det_performance_all):
     false_positives = sum(pos_negs_arr[:,3])
     
     ## step 2 : compute precision
-    precision = true_positives / float(true_positives + false_positives)
+    precision = true_positives / (true_positives + false_positives)
 
     ## step 3 : compute recall 
-    recall = true_positives / float(true_positives + false_negatives)
+    recall = true_positives / (true_positives + false_negatives)
     #######    
     ####### ID_S4_EX3 END #######     
     print('precision = ' + str(precision) + ", recall = " + str(recall))   
