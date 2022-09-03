@@ -14,8 +14,9 @@
 import numpy as np
 import torch
 from easydict import EasyDict as edict
-from SFA3D.sfa import test
-from utils.torch_utils import _sigmoid
+#from SFA3D.sfa import test
+#from utils.torch_utils import _sigmoid
+
 
 # add project directory to python path to enable relative imports
 import os
@@ -31,6 +32,10 @@ from tools.objdet_models.resnet.utils.evaluation_utils import decode, post_proce
 from tools.objdet_models.darknet.models.darknet2pytorch import Darknet as darknet
 from tools.objdet_models.darknet.utils.evaluation_utils import post_processing_v2
 
+#Function definitioin taken from utils.torch_utils._sigmoid in SFA3d
+#SFA3D taken from https://github.com/maudzung/SFA3D
+def _sigmoid(x):
+    return torch.clamp(x.sigmoid_(), min=1e-4, max=1 - 1e-4)
 
 # load model-related parameters into an edict
 def load_configs_model(model_name, configs):
