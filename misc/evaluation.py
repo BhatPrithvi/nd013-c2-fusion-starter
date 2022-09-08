@@ -230,7 +230,7 @@ def plot_rmse(manager, all_labels):
 def make_movie(path):
     # read track plots
     images = [img for img in sorted(os.listdir(path)) if img.endswith(".png")]
-    frame = cv2.imread(os.path.join(path, images[0]))
+    frame = cv2.imread(os.path.join(path, images[1]))
     height, width, layers = frame.shape
 
     # save with 10fps to result dir
